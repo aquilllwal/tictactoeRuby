@@ -1,4 +1,11 @@
-class Board
+require './exception_for_tictactoe.rb'
+require 'rollbar'
+
+Rollbar.configure do |config|
+  config.access_token = 'ff49f2d4a07d4f7781c2fccb6b29e259'
+end
+
+class Board < NoSuchMoves
     def initialize
       @grid = [
         ["tl", "tc", "tr"],
@@ -67,7 +74,12 @@ class Board
         @grid[2][2] = player
         @bot_row[5] = player
       else
-        puts "make a valid request for move"
+        begin
+          raise NoSuchMoves.new("No such move available: #{position}")
+        rescue NoSuchMoves => e
+          Rollbar.error(e)
+          p e.message
+        end
       end
     end
   
