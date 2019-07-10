@@ -43,40 +43,35 @@ require 'byebug'
 
 
 
+# class Greeting
+#     def self.hello
+#       'hello world!'
+#     end
+  
+#     def self.eigenclass
+#       class << self
+#         def inside
+#             "inside"
+#         end
+#       end
+#     end
+# end
 
+# p Greeting.new
+# p Greeting.instance_methods.include?(false)
+# p Greeting.eigenclass
+# p Greeting.eigenclass
+# p Greeting.inside
 
-
-def display
-    board = [[0,0,0],
-                [0,0,0],
-                [0,0,0]]
-    s = ""
-    flag = false
-    for i in (0...3) do 
-        byebug
-        for j in (0...3) do
-            byebug
-            case board[i][j]
-            when 1 
-                s.concat " X "
-                break
-            when -1 
-                s.concat " O "
-                break
-            when 0 
-                s.concat " "
-                flag = true
-                break
-            end
-            if j < 2
-                s.concat "|"
-            end		
-        end
-        if i < 2
-            s.concat "\n-----------\n" 
+class Doctor
+    ["rhinoplasty", "checkup", "interpretive_dance"].each do |action|
+        define_method("perform_#{action}") do |argument|
+              "performing #{action.gsub('_', ' ')} on #{argument}"
         end
     end
-    return s
-end
+  end
 
-display
+  doc = Doctor.new
+puts doc.perform_rhinoplasty("nose")
+puts doc.perform_checkup("throat")
+puts doc.perform_interpretive_dance("in da club")

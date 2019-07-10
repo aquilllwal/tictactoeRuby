@@ -26,11 +26,7 @@ class Board < NoSuchMoves
     end
 
     def check_ties
-        if(0..6).none? {|i| @top_row[i] == " "} and (0..6).none? {|i| @mid_row[i] == " "} and (0..6).none? {|i| @bot_row[i] == " "}
-            return true 
-        else 
-            return false
-        end
+      (0..6).none? {|i| @top_row[i] == " "} and (0..6).none? {|i| @mid_row[i] == " "} and (0..6).none? {|i| @bot_row[i] == " "}
     end
   
     def show_instructions
@@ -72,7 +68,7 @@ class Board < NoSuchMoves
         @bot_row[3] = player
       when "br"
         @grid[2][2] = player
-        @bot_row[5] = player
+        @bot_row[5] = player 
       else
         begin
           raise NoSuchMoves.new("No such move available: #{position}")
@@ -84,14 +80,14 @@ class Board < NoSuchMoves
     end
   
     def win(player)
-      return true if (0..2).all? { |i| check(0, i, player) }
-      return true if (0..2).all? { |i| check(1, i, player) }
-      return true if (0..2).all? { |i| check(2, i, player) }
-      return true if (0..2).all? { |i| check(i, 0, player) }
-      return true if (0..2).all? { |i| check(i, 1, player) }
-      return true if (0..2).all? { |i| check(i, 2, player) }
-      return true if (0..2).all? { |i| check(i, i, player) }
-      return true if (0..2).all? { |i| check(i, 2 - i, player) }
+        (0..2).all? { |i| check(0, i, player) } || 
+        (0..2).all? { |i| check(1, i, player) } || 
+        (0..2).all? { |i| check(2, i, player) } ||
+        (0..2).all? { |i| check(i, 0, player) } ||
+        (0..2).all? { |i| check(i, 1, player) } ||
+        (0..2).all? { |i| check(i, 2, player) } ||
+        (0..2).all? { |i| check(i, i, player) } ||
+        (0..2).all? { |i| check(i, 2 - i, player) }
     end
   
   end
